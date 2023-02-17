@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alarm</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="timer"></h1>
+        <input  style="padding: 7px 40px; background: rgb(245, 152, 245); margin-bottom: 10px;" id="todo" type="text"><br>
+        <select  id="hour"></select>
+        <select  id="minute"></select>
+        <select  id="seconds"></select>
+        <select  id="AMPM">
+            <option value="AM">AM</option>
+            <option value="PM">PM</option>
+        </select><br>
+        <button onclick="startStop()" style="margin-top: 20px;" id="startstop">Set Alarm</button>
+    </div>
+   
+    <h1 id="sho"></h1>
+   <!--  <textarea style="font-size: 20px;" name="" id="sho" cols="30" rows="10"></textarea> -->
+
+
+   <select id="didi">
+       <option value=""></option>
+   </select>
+
+<script>    
+
+    let todo=document.getElementById('todo') 
+    let timer=document.getElementById('timer');
+    let hour=document.getElementById('hour');
+    let minute=document.getElementById('minute');
+    let seconds=document.getElementById('seconds');
+    let AMPM=document.getElementById('AMPM');
+    let startstop=document.getElementById('startstop');
+    //let text_box=document.getElementById('textarea');
+   
+
+    
+    
+    let currentTime;
+    let alarmElement;
+    let activeAlarm = false;
+    var sound = new Audio('music.mp3')
+    sound.loop=true;
+
+    function DisplayTime(){
+        let now=new Date();
+        currentTime = now.toLocaleTimeString();
+        
+
+        if(currentTime === alarmElement){
+          //  alert('You can take your launch')
+        //  sho.innerHTML='You can take your launch';
+          console.log('You can take your launch')
+            sound.play();
+            box = todo.value;
+            todo.value=''
+            sho.innerHTML+= box
+            alert()
+        }
+        
+        timer.innerHTML = currentTime;
+        setInterval(DisplayTime, 1000)
+    }
+    DisplayTime();
+
+
+    function addMinSec(id){
+        let select =id;
+        let min =59;
+        
+        for (let i = 0; i <= min; i++) {
+            select[select.length] = new Option(i<10 ? '0'+ i : i);
+            
+        }
+    }
+    
+    function addHour(id){
+        let select =id;
+        let min =  12;
+
+        for(let i =0; i <= min; i++){
+            select.options[select.options.length] = new Option(i<10 ? "" + i : i);
+        }
+     /*    if(min > 10){
+            return '0' + min
+        }
+        return min */
+    }
+    addHour(hour);
+    addMinSec(seconds);
+    addMinSec(minute);
+
+
+    function startStop(){
+        if(activeAlarm === false){
+            hour.disabled = true;
+            minute.disabled = true;
+            seconds.disabled = true;
+
+            alarmElement = hour.value + ':' + minute.value + ':'+ seconds.value + " " +AMPM.value;
+            startstop.innerHTML='Clear Alarm'
+            activeAlarm = true;
+           
+        }
+       else{
+        hour.disabled = false;
+        minute.disabled = false;
+        seconds.disabled = false;
+        startstop.innerHTML='Set Alarm'
+        activeAlarm = true;
+        toggle=0
+       }
+    }
+
+
+
+
+let sel=48;
+let didi=document.getElementById('didi')
+
+function soo(){
+       for(let i=0; i<=sel; i++){
+           didi[didi.length] =new Option(i <10 ? '0' + i : i)
+       }
+   }
+ soo()
+</script>
+</body>
+</html>
